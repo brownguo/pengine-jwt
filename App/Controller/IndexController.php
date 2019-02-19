@@ -8,9 +8,18 @@
 
 class IndexController
 {
-    public function test($a)
+
+    public function index()
     {
-        print_r($a);
+        echo "Default Action!\n";
+    }
+
+    public function test()
+    {
+        echo "<pre>";
+        print_R($_GET);
+        print_r(\Firebase\JWT\JWT::encode(111));
         echo "Instance is Test!\n";
     }
+
 }

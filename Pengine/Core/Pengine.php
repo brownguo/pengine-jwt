@@ -10,6 +10,10 @@ class Pengine
 {
     protected static $startTime;
 
+
+    protected static $defaultController = 'IndexController';
+    protected static $defaultAction     = 'index';
+
     public function __construct()
     {
         static::$startTime = microtime(true);
@@ -46,6 +50,8 @@ class Pengine
 
     protected static function dispathch()
     {
+        $params = array();
+
         $Uri      = $_SERVER['REQUEST_URI'];
         $Position = strpos($Uri, '?');
 
@@ -54,7 +60,7 @@ class Pengine
 
         parse_str($_SERVER['QUERY_STRING'],$parse_arr);
 
-        if($parse_arr)
+        if(!empty($parse_arr))
         {
             $params = $parse_arr;
         }
@@ -66,7 +72,15 @@ class Pengine
             $Action     = $UrlArray[1];
         }
 
-        $Controller = $Controller.'Controller';
+        if(empty($Controller))
+        {
+            $Controller = static::$defaultController;
+            $Action     = static::$defaultAction;
+        }
+        else
+        {
+            $Controller = $Controller.'Controller';
+        }
 
         if(!class_exists($Controller))
         {
@@ -74,7 +88,7 @@ class Pengine
         }
         if(!method_exists($Controller,$Action))
         {
-            exit(sprintf('%s not found %s Action',$Controller,$Action));
+            exit(sprintf('[%s] not found [%s] Action',$Controller,$Action));
         }
 
         call_user_func_array(array($Controller,$Action),array($params));
