@@ -37,7 +37,7 @@ class Pengine
     {
         spl_autoload_register(function($name)
         {
-            $LoadableModules = array('/App/Controller','/App/Model','App/Config','App/Model','App/View');
+            $LoadableModules = array('/App/Controller','/App/Model','App/Config','App/Model','Pengine/Lib/Jwt');
 
             foreach ($LoadableModules as $module)
             {
@@ -46,6 +46,11 @@ class Pengine
                     require_once $filename;
             }
         });
+    }
+
+    public static function loadLibrary($lib)
+    {
+        include BASE_PATH."Pengine/Lib/Jwt/{$lib}.php";
     }
 
     protected static function dispathch()
