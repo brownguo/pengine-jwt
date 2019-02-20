@@ -50,7 +50,17 @@ class Pengine
 
     public static function loadLibrary($lib)
     {
-        include BASE_PATH."Pengine/Lib/Jwt/{$lib}.php";
+        $lib_dir = BASE_PATH."Pengine/Lib/{$lib}/*.php";
+
+        foreach (glob($lib_dir) as $file)
+        {
+            if(is_file($file))
+            {
+                require_once $file;
+            }
+        }
+
+
     }
 
     protected static function dispathch()
@@ -96,8 +106,38 @@ class Pengine
             exit(sprintf('[%s] not found [%s] Action',$Controller,$Action));
         }
 
-        call_user_func_array(array($Controller,$Action),array($params));
+        //call_user_func_array(array($Controller,$Action),array($params));
+
+        static::loadMethod($Controller,$Action);
     }
+
+    protected static function loadMethod($object,$func)
+    {
+        $object = new ReflectionClass($object);
+
+        if($object->hasMethod($func))
+        {
+            $tmp = $object->getMethod($func);
+
+            if($tmp->isPublic() && !$tmp->isAbstract())
+            {
+                $tmp->invoke($object->newInstance());
+            }
+            else if($tmp->isStatic())
+            {
+                $tmp->invoke(null);
+            }
+            else
+            {
+                exit("You do not have permission to access the requested data or object!");
+            }
+        }
+        else
+        {
+            exit("Not found Function:".$func);
+        }
+    }
+
 
     protected static function checkEnv()
     {
