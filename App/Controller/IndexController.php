@@ -7,9 +7,6 @@
  */
 
 use \Firebase\JWT\JWT;
-use \Firebase\JWT\SignatureInvalidException;
-use \Firebase\JWT\BeforeValidException;
-use \Firebase\JWT\ExpiredException;
 
 class IndexController extends BaseController
 {
@@ -28,6 +25,8 @@ class IndexController extends BaseController
     {
 
         echo "<pre>";
+        print_r($_GET);
+        print_r(BaseModel::test());
         print_r(get_included_files());
         $key = '344'; //key
         $time = time(); //当前时间
@@ -44,19 +43,5 @@ class IndexController extends BaseController
         ];
         $jwt =  JWT::encode($token, $key); //输出Token
         echo $jwt;
-        try {
-            JWT::$leeway = 60;//当前时间减去60，把时间留点余地
-            $decoded = JWT::decode($jwt, $key, ['HS256']); //HS256方式，这里要和签发的时候对应
-            $arr = (array)$decoded;
-            print_r($arr);
-        } catch(\Firebase\JWT\SignatureInvalidException $e) {  //签名不正确
-            echo $e->getMessage();
-        }catch(\Firebase\JWT\BeforeValidException $e) {  // 签名在某个时间点之后才能用
-            echo $e->getMessage();
-        }catch(\Firebase\JWT\ExpiredException $e) {  // token过期
-            echo $e->getMessage();
-        }catch(Exception $e) {  //其他错误
-            echo $e->getMessage();
-        }
     }
 }
