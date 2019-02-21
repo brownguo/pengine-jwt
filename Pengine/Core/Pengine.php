@@ -37,7 +37,8 @@ class Pengine
     {
         spl_autoload_register(function($name)
         {
-            $LoadableModules = array('/App/Controller','/App/Model','App/Config','App/Model','Pengine/Lib/Jwt');
+            //something hardcode.
+            $LoadableModules = array('/App/Controller','/App/Model','App/Config','App/Model','Pengine/Lib/Jwt','Pengine/Lib/Db');
 
             foreach ($LoadableModules as $module)
             {
@@ -59,8 +60,6 @@ class Pengine
                 require_once $file;
             }
         }
-
-
     }
 
     protected static function dispathch()

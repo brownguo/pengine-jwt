@@ -7,11 +7,14 @@
  */
 
 return array(
-    'db' =>array(
-        'type'  =>'mysql',
-        'host'  =>'127.0.0.1',
-        'user'  =>'root',
-        'pass'  =>'123456',
-        'port'  =>3306
-    ),
+    'db' => array(
+        'mysql'=>array(
+            'host'   => 'localhost',
+            'user'   => 'root',
+            'pass'   => '',
+            'name'   => 'zhihu',
+            'port'   => '3306',
+            'charset'=> 'urf-8',
+        ),
+    )
 );

@@ -10,6 +10,6 @@ class BaseModel
 {
     public static function test()
     {
-        echo "This is BaseModel!\n";
+        print_r(Db::getInstance()->query('select * from t_answer'));
     }
 }

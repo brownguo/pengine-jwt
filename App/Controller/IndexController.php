@@ -25,9 +25,7 @@ class IndexController extends BaseController
     {
 
         echo "<pre>";
-        print_r($_GET);
-        print_r(BaseModel::test());
-        print_r(get_included_files());
+        BaseModel::test();
         $key = '344'; //key
         $time = time(); //当前时间
         $token = [

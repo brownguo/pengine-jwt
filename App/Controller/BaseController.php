@@ -19,14 +19,14 @@ class BaseController
         static::verification();
     }
 
-    protected static function verification($token=1,$key=2)
+    protected static function verification($token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC93d3cuaGVsbG93ZWJhLm5ldCIsImF1ZCI6Imh0dHA6XC9cL3d3dy5oZWxsb3dlYmEubmV0IiwiaWF0IjoxNTUwNzIxMTQ5LCJuYmYiOjE1NTA3MjExNDksImV4cCI6MTU1MDcyODM0OSwiZGF0YSI6eyJ1c2VyaWQiOjEsInVzZXJuYW1lIjoiXHU2NzRlXHU1YzBmXHU5Zjk5In19.vM1PC0aA_FDaZ0-2vhrg4nBymFTDk3vgQGcJQCCXZJU',$key=2)
     {
         echo "<pre>";
         print_r($_SERVER);
         try
         {
             JWT::$leeway = 60;//当前时间减去60，把时间留点余地
-            $decoded = JWT::decode($token, $key, ['HS256']); //HS256方式，这里要和签发的时候对应
+            $decoded = JWT::decode($token, 344, ['HS256']); //HS256方式，这里要和签发的时候对应
             $arr = (array)$decoded;
             print_r($arr);
         }
