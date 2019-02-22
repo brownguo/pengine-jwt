@@ -13,37 +13,40 @@ use \Firebase\JWT\ExpiredException;
 
 class BaseController
 {
+
+    public $private_key;
+
+
     public function __construct()
     {
         Pengine::loadLibrary('Jwt');
-        static::verification();
+        $this->setPrivateKey();
     }
 
-    protected static function verification($token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC93d3cuaGVsbG93ZWJhLm5ldCIsImF1ZCI6Imh0dHA6XC9cL3d3dy5oZWxsb3dlYmEubmV0IiwiaWF0IjoxNTUwNzIxMTQ5LCJuYmYiOjE1NTA3MjExNDksImV4cCI6MTU1MDcyODM0OSwiZGF0YSI6eyJ1c2VyaWQiOjEsInVzZXJuYW1lIjoiXHU2NzRlXHU1YzBmXHU5Zjk5In19.vM1PC0aA_FDaZ0-2vhrg4nBymFTDk3vgQGcJQCCXZJU',$key=2)
+    public function setPrivateKey()
+    {
+        $this->private_key = Config::get('key');
+    }
+
+    protected function verifyToken($token)
     {
         echo "<pre>";
-        print_r($_SERVER);
-        try
-        {
-            JWT::$leeway = 60;//当前时间减去60，把时间留点余地
-            $decoded = JWT::decode($token, 344, ['HS256']); //HS256方式，这里要和签发的时候对应
-            $arr = (array)$decoded;
+        try {
+            JWT::$leeway = 20;
+            $decoded     = JWT::decode($token, $this->private_key, ['HS256']);
+            $arr         = (array)$decoded;
             print_r($arr);
         }
-        catch(SignatureInvalidException $e)
-        {
+        catch(SignatureInvalidException $e) {   //签名不正确
             echo $e->getMessage();
         }
-        catch(BeforeValidException $e)
-        {
+        catch(BeforeValidException $e) {        //签名在某个时间点之后才能使用
             echo $e->getMessage();
         }
-        catch(ExpiredException $e)
-        {
+        catch(ExpiredException $e) {            //token过期了,尝试refresh
             echo $e->getMessage();
         }
-        catch(Exception $e)
-        {
+        catch(Exception $e) {                   //其他错误
             echo $e->getMessage();
         }
     }

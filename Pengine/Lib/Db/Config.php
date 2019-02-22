@@ -13,7 +13,7 @@ class Config
 
     private function __construct()
     {
-        $filename = BASE_PATH.'Config/config.php';
+        $filename = BASE_PATH.'/App/Config/config.php';
         if(!file_exists($filename))
         {
             throw new Exception(sprintf('Config file [%s] not found',$filename));
