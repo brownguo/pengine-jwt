@@ -23,6 +23,9 @@ class IndexController extends BaseController
 
     public function test()
     {
+
+        echo "<pre>";
+
         $key = $this->private_key;
         $time = time(); //当前时间
 
@@ -46,7 +49,7 @@ class IndexController extends BaseController
         $TokenList = array(
             'access_token'  => JWT::encode($access_access,$key),
             'refresh_token' => JWT::encode($refresh_token,$key),
-            'token_type'=>'bearer'
+            'token_type'=>'Bearer'
         );
 
         //Header("HTTP/1.1 201 Created");

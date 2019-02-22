@@ -30,7 +30,6 @@ class BaseController
 
     protected function verifyToken($token)
     {
-        echo "<pre>";
         try {
             JWT::$leeway = 20;
             $decoded     = JWT::decode($token, $this->private_key, ['HS256']);
