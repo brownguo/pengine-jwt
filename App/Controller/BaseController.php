@@ -16,6 +16,9 @@ class BaseController
 
     public $private_key;
 
+    protected $access_exp_time  = 3600;
+    protected $refresh_exp_time = 7200;
+    protected $token_type       = 'Bearer';
 
     public function __construct()
     {
@@ -23,7 +26,7 @@ class BaseController
         $this->setPrivateKey();
     }
 
-    public function setPrivateKey()
+    protected function setPrivateKey()
     {
         $this->private_key = Config::get('key');
     }
@@ -48,5 +51,39 @@ class BaseController
         catch(Exception $e) {                   //其他错误
             echo $e->getMessage();
         }
+    }
+
+    protected function Signature()
+    {
+        $key  = $this->private_key;
+
+        $time = time();
+
+        $token = array(
+            'jti' =>'weiyiid',
+            'iss' => 'http://test.jwt.com', //签发者 可选
+            'aud' => 'http://test.jwt.com', //接收该JWT的一方，可选
+            'sub' => 'http://test.jwt.com',
+            'iat' => $time, //签发时间
+            'nbf' => $time , //(Not Before)：某个时间点后才能访问，比如设置time+30，表示当前时间30秒后才能使用
+            'data'=> array(
+                'user_id'=>201958697,
+                'user_nm'=>'BrownGuo!',
+            ),
+        );
+        $access_access = array(
+            $token, 'scopes'=>'Access', 'exp' =>$time + $this->access_exp_time
+        );
+        $refresh_token = array(
+            $token, 'scopes'=>'Refresh','exp' =>$time + $this->refresh_exp_time
+        );
+
+        $TokenList = array(
+            'access_token'  => JWT::encode($access_access,$key),
+            'refresh_token' => JWT::encode($refresh_token,$key),
+            'token_type'=>'Bearer'
+        );
+
+        return $TokenList;
     }
 }
