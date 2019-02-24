@@ -63,7 +63,7 @@ class BaseController
             'jti' =>'weiyiid',
             'iss' => 'http://test.jwt.com', //签发者 可选
             'aud' => 'http://test.jwt.com', //接收该JWT的一方，可选
-            'sub' => 'http://test.jwt.com',
+            'sub' => 'http://test.jwt.com', //可以使用的作用域
             'iat' => $time, //签发时间
             'nbf' => $time , //(Not Before)：某个时间点后才能访问，比如设置time+30，表示当前时间30秒后才能使用
             'data'=> array(
