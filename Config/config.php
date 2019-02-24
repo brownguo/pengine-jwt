@@ -11,8 +11,8 @@ return array(
         'mysql'=>array(
             'host'   => 'localhost',
             'user'   => 'root',
-            'pass'   => '',
-            'name'   => 'zhihu',
+            'pass'   => 'admin123.',
+            'name'   => 'pengine',
             'port'   => '3306',
             'charset'=> 'urf-8',
         ),

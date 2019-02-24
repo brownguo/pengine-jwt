@@ -13,6 +13,8 @@ class Pengine
 
     protected static $defaultController = 'IndexController';
     protected static $defaultAction     = 'index';
+    private static $loadFilesPath;
+    private static $version;
 
     public function __construct()
     {
@@ -28,6 +30,15 @@ class Pengine
         static::rmRegisterGlobals();
     }
 
+    private static function setLoadPath()
+    {
+        static::$loadFilesPath = array('/App/Controller/'.static::$version,
+            '/App/Model','App/Config', 'Pengine/Lib/Jwt',
+            'Pengine/Lib/Db'
+        );
+    }
+
+
     protected static function init()
     {
         //static::$startTime = microtime(true);
@@ -37,8 +48,7 @@ class Pengine
     {
         spl_autoload_register(function($name)
         {
-            //something hardcode.
-            $LoadableModules = array('/App/Controller','/App/Model','App/Config','App/Model','Pengine/Lib/Jwt','Pengine/Lib/Db');
+            $LoadableModules = static::$loadFilesPath;
 
             foreach ($LoadableModules as $module)
             {
@@ -81,9 +91,11 @@ class Pengine
 
         if($Url)
         {
-            $UrlArray   = explode('/',$Url);
-            $Controller = ucfirst($UrlArray[0]);
-            $Action     = $UrlArray[1];
+            $UrlArray           = explode('/',$Url);
+            static::$version    = strtolower($UrlArray[0]);
+            $Controller         = ucfirst($UrlArray[1]);
+            $Action             = $UrlArray[2];
+            static::setLoadPath();
         }
 
         if(empty($Controller))

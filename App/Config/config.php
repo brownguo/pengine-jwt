@@ -13,7 +13,7 @@ return array(
             'database_name' => 'pengine',
             'server'        => 'localhost',
             'username'      => 'root',
-            'password'      => 'admin123',
+            'password'      => 'admin123.',
             'charset'       => 'utf8',
             'port'          => 3306,
             'prefix'        => 't_',
