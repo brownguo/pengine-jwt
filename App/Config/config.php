@@ -9,12 +9,17 @@
 return array(
     'db' => array(
         'mysql'=>array(
-            'host'   => 'localhost',
-            'user'   => 'root',
-            'pass'   => '',
-            'name'   => 'zhihu',
-            'port'   => '3306',
-            'charset'=> 'urf-8',
+            'database_type' => 'mysql',
+            'database_name' => 'pengine',
+            'server'        => 'localhost',
+            'username'      => 'root',
+            'password'      => 'admin123',
+            'charset'       => 'utf8',
+            'port'          => 3306,
+            'prefix'        => 't_',
+            'option'        => [
+                PDO::ATTR_CASE => PDO::CASE_NATURAL
+            ]
         ),
     ),
     'key'   =>'1gHuiop975cdashyex9Ud23ldsvm2Xq',

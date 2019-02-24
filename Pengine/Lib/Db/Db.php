@@ -12,6 +12,8 @@ class Db
 
     protected $dsn;
     protected $dbh;
+    protected $res; //result
+    protected static $dbname;
 
     private function __construct($db_config)
     {
@@ -26,6 +28,8 @@ class Db
         }catch (PDOException $e){
             throw new Exception('MySQL Error: '.$e->getMessage());
         }
+
+        $this->dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
 
     public static function getInstance()
@@ -33,7 +37,7 @@ class Db
         $config = Config::get('db.mysql');
         if(!(static::$_instance instanceof self))
         {
-            static::$_instance = new self($config);
+            static::$_instance = new Medoo($config);
         }
         return static::$_instance;
     }
@@ -51,18 +55,67 @@ class Db
 
             if($recordset)
             {
-                $recordset->setFetchMode(PDO::FETCH_ASSOC);
+                $this->res = $recordset;
                 switch ($mode)
                 {
                     case 'ALL':
-                        $ret = $recordset->fetchAll();
+                        $ret = $this->fetchAll();
                         break;
                     case 'ROW':
-                        $ret = $recordset->fetch();
+                        $ret = $this->fetch();
                 }
             }
         }
         return $ret;
     }
 
+    public function exec($sql)
+    {
+        $res = $this->dbh->query($sql);
+
+        if($res)
+        {
+            $this->res = $res;
+        }
+        else
+        {
+            return $res;
+        }
+    }
+
+    public function getFields($t_name)
+    {
+        $sql  = 'SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME="'.$t_name.'" AND TABLE_SCHEMA="'.Config::get('db.mysql.name').'"';
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($result as $key=>$value)
+        {
+            $ret[$value['COLUMN_NAME']] = 1;
+        }
+        return $ret;
+    }
+
+
+    public function fetch()
+    {
+        return $this->res->fetch();
+    }
+
+    public function fetchAll()
+    {
+        return $this->res->fetchAll();
+    }
+
+    public function fetchColumn()
+    {
+        return $this->res->fetchColumn();
+    }
+
+    public function insert($t_name,$data)
+    {
+        $sql = "INSERT INTO ".$t_name."(".implode(',',array_keys($data)).") VALUES(".implode(',',array_values($data)).")";
+        echo $sql;
+        return $this->exec($sql);
+    }
 }

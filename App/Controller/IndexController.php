@@ -26,6 +26,7 @@ class IndexController extends BaseController
 
         echo "<pre>";
 
+        BaseModel::test();
         $key = $this->private_key;
         $time = time(); //当前时间
 

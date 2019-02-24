@@ -10,6 +10,30 @@ class BaseModel
 {
     public static function test()
     {
-        print_r(Db::getInstance()->query('select * from t_answer'));
+        $data = array(
+            'Faccount'=>'account',
+            'Fpassword'=>'password',
+            'Fnickname'=>'nikename',
+            'Fverify'  =>'verify',
+            'FlastLoginTime'=>'123',
+            'FloginCount'=>'login_count',
+            'FlastLoginIp'=>'loginip',
+            'FcreateTime'=>'1112222333'
+        );
+        $datau = array(
+            'Faccount'=>'account',
+            'Fpassword'=>'password',
+            'Fnickname'=>'nikename',
+            'Fverify'  =>'verify',
+            'FlastLoginTime'=>'江湖!!',
+            'FloginCount'=>'login_count',
+            'FlastLoginIp'=>'loginip',
+            'FcreateTime'=>'1112222333'
+        );
+
+//        var_dump(Db::getInstance()->insert('account',$data));
+        var_dump(Db::getInstance()->update('account',$datau,array('Fid'=>1)));
+
+        print_r(Db::getInstance()->select('account','*'));
     }
 }
