@@ -109,8 +109,11 @@ class Pengine
             }
             else
             {
-                $Controller         = ucfirst($UrlArray[1]);
-                $Action             = $UrlArray[2];
+                if(count($UrlArray) > 2)
+                {
+                    $Controller         = ucfirst($UrlArray[1]);
+                    $Action             = $UrlArray[2];
+                }
             }
         }
 
