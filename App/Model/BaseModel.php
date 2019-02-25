@@ -32,7 +32,7 @@ class BaseModel
         );
 
 //        var_dump(Db::getInstance()->insert('account',$data));
-        var_dump(Db::getInstance()->update('account',$datau,array('Fid'=>1)));
+        //var_dump(Db::getInstance()->update('account',$datau,array('Fid'=>1)));
 
         print_r(Db::getInstance()->select('account','*'));
     }

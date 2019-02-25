@@ -8,7 +8,7 @@
 
 use \Firebase\JWT\JWT;
 
-class IndexController extends BaseController
+class UserController extends BaseController
 {
 
     public function __construct()
@@ -21,12 +21,10 @@ class IndexController extends BaseController
         echo "Default Action!\n";
     }
 
-    public function test()
+    public function login()
     {
 
         echo "<pre>";
-
-        print_r($_SERVER);
 
         BaseModel::test();
         $key = $this->private_key;

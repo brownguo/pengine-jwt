@@ -93,13 +93,28 @@ class Pengine
         {
             $UrlArray           = explode('/',$Url);
             static::$version    = strtolower($UrlArray[0]);
-            $Controller         = ucfirst($UrlArray[1]);
-            $Action             = $UrlArray[2];
             static::setLoadPath();
+
+            //Mapping
+            $router_map    = static::getMappingRouter();
+            $mapping_url   = str_replace(static::$version.'/','',$Uri);
+
+            @$router_config = $router_map[$mapping_url];
+
+            if(isset($router_config))
+            {
+                $rule = explode('/',$router_config);
+                $Controller = $rule[0];
+                $Action     = $rule[1];
+            }
+            else
+            {
+                $Controller         = ucfirst($UrlArray[1]);
+                $Action             = $UrlArray[2];
+            }
         }
 
-        if(empty($Controller))
-        {
+        if(empty($Controller)) {
             $Controller = static::$defaultController;
             $Action     = static::$defaultAction;
         }
@@ -120,6 +135,12 @@ class Pengine
         //call_user_func_array(array($Controller,$Action),array($params));
 
         static::loadMethod($Controller,$Action);
+    }
+
+    protected static function getMappingRouter()
+    {
+        $router_version = sprintf('router.%s',static::$version);
+        return Config::get($router_version);
     }
 
     protected static function loadMethod($object,$func)

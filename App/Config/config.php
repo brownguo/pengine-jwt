@@ -13,7 +13,7 @@ return array(
             'database_name' => 'pengine',
             'server'        => 'localhost',
             'username'      => 'root',
-            'password'      => 'admin123.',
+            'password'      => '',
             'charset'       => 'utf8',
             'port'          => 3306,
             'prefix'        => 't_',
@@ -23,4 +23,14 @@ return array(
         ),
     ),
     'key'   =>'1gHuiop975cdashyex9Ud23ldsvm2Xq',
+
+    'router'=>array(
+            'v1'=>array(
+                '/auth/user/login' =>'user/login',
+                '/test/test' =>'user/index'
+            ),
+            'v2'=>array(
+                '/test/test' =>'user/index'
+            )
+    )
 );

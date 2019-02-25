@@ -8,7 +8,7 @@
 
 use \Firebase\JWT\JWT;
 
-class IndexController extends BaseController
+class UserController extends BaseController
 {
 
     public function __construct()
@@ -21,7 +21,7 @@ class IndexController extends BaseController
         echo "This is V2 Default Action!\n";
     }
 
-    public function test()
+    public function login()
     {
 
         echo "<pre>";
