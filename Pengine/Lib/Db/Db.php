@@ -17,27 +17,27 @@ class Db
 
     private function __construct($db_config)
     {
-        try{
-            $this->dsn = sprintf('mysql:host=%s;dbname=%s',$db_config['host'],$db_config['name']);
-
-            $this->dbh = new PDO($this->dsn,$db_config['user'],$db_config['pass']);
-
-            $this->dbh->exec(sprintf('SET character_set_connection=%s,character_set_results=%s,character_set_client=binary',
-                $db_config['charset'],$db_config['charset']));
-
-        }catch (PDOException $e){
-            throw new Exception('MySQL Error: '.$e->getMessage());
-        }
-
-        $this->dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+//        try{
+//            $this->dsn = sprintf('mysql:host=%s;dbname=%s',$db_config['host'],$db_config['name']);
+//
+//            $this->dbh = new PDO($this->dsn,$db_config['user'],$db_config['pass']);
+//
+//            $this->dbh->exec(sprintf('SET character_set_connection=%s,character_set_results=%s,character_set_client=binary',
+//                $db_config['charset'],$db_config['charset']));
+//
+//        }catch (PDOException $e){
+//            throw new Exception('MySQL Error: '.$e->getMessage());
+//        }
+//
+//        $this->dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
 
     public static function getInstance()
     {
         $config = Config::get('db.mysql');
-        if(!(static::$_instance instanceof self))
+        if(!(static::$_instance instanceof medoo))
         {
-            static::$_instance = new Medoo($config);
+            static::$_instance = new medoo($config);
         }
         return static::$_instance;
     }
