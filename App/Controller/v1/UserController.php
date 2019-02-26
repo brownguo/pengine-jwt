@@ -26,6 +26,7 @@ class UserController extends BaseController
 
         echo "<pre>";
 
+        print_r(pengine::input('get.a'));
         BaseModel::test();
         $key = $this->private_key;
         $time = time(); //当前时间

@@ -26,11 +26,11 @@ return array(
 
     'router'=>array(
             'v1'=>array(
-                '/auth/user/login' =>'user/login',
+                '/users/login' =>'user/login',
                 '/test/test' =>'user/index'
             ),
             'v2'=>array(
-                '/test/test' =>'user/index'
+                '/test/test' =>'user/login'
             )
     )
 );
