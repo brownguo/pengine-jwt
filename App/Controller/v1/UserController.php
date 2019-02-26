@@ -23,7 +23,6 @@ class UserController extends BaseController
 
     public function login()
     {
-
         $username = pengine::input('get.username');
         $password = pengine::input('get.password');
 
