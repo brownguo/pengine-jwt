@@ -11,7 +11,6 @@ use \Firebase\JWT\JWT;
 
 class UserModel
 {
-
     public static function _doLogin($username,$password)
     {
         $userInfo = Db::getInstance()->get('account',
@@ -22,33 +21,32 @@ class UserModel
                     'Faccount'=>$username
                 )
             );
-
         if($userInfo !== false)
         {
             $verify = md5(md5($password).$userInfo['Fverify'].$username);
-
             if($verify == $userInfo['Fpassword'])
             {
                 static::_updateLoginInfo($userInfo);
                 unset($userInfo['Fpassword'],$userInfo['Fverify']);
             }
         }
-        print_r($userInfo);
     }
 
-    protected static function _updateLoginInfo($userInfo)
+    private static function _updateLoginInfo($userInfo)
     {
         $loginData = array(
             'FlastLoginTime'=> time(),
             'FloginCount'   => intval($userInfo['FloginCount']) + 1,
             'FlastLoginIp'  => pengine::get_client_ip(),
         );
-        Db::getInstance()->update(
+
+        $ret = Db::getInstance()->update(
             'account',$loginData,
             array(
                 'Fid'=>$userInfo['Fid'],
             )
         );
+        return $ret;
     }
 
 }
