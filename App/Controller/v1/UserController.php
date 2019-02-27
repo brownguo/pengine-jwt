@@ -6,19 +6,19 @@
  * Time: 9:54 PM
  */
 
-use \Firebase\JWT\JWT;
-
 class UserController extends BaseController
 {
+    private $UserServices;
 
     public function __construct()
     {
         parent::__construct();
+        $this->UserServices = new UserModel();
     }
 
-    public function index()
+    public function getRules()
     {
-        echo "Default Action!\n";
+         echo "111";
     }
 
     public function login()
@@ -26,6 +26,8 @@ class UserController extends BaseController
         $username = pengine::input('get.username');
         $password = pengine::input('get.password');
 
-        UserModel::_doLogin($username,$password);
+        $res = $this->UserServices->_doLogin($username,$password);
+
+        print_r($res);
     }
 }

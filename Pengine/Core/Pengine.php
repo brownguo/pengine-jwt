@@ -407,4 +407,20 @@ class Pengine
         return $ip[$type];
     }
 
+    public static function object_to_array($_array)
+    {
+        if (is_object($_array))
+        {
+            $_array = (array)$_array;
+        }
+        if(is_array($_array))
+        {
+            foreach ($_array as $key=>$val)
+            {
+                $_array[$key] = static::object_to_array($val);
+            }
+        }
+        return $_array;
+    }
+
 }

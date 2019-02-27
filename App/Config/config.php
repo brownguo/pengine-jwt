@@ -26,8 +26,9 @@ return array(
 
     'router'=>array(
             'v1'=>array(
-                '/users/login' =>'user/login',
-                '/test/test' =>'user/index'
+                '/users/login'  =>'user/login',
+                '/test/test'    =>'user/index',
+                '/auth/rule/get'=>'user/getRules'
             ),
             'v2'=>array(
                 '/test/test' =>'user/login'

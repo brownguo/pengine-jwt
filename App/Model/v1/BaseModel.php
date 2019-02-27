@@ -8,7 +8,18 @@
 
 class BaseModel
 {
-    public static function test()
+
+    protected $private_key;
+    protected $access_Exp  = 3600;
+    protected $refresh_Exp = 7200;
+
+    public function __construct()
     {
+        $this->_setPrivateKey();
+    }
+
+    public function _setPrivateKey()
+    {
+        $this->private_key =  Config::get('key');
     }
 }
