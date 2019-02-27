@@ -19,6 +19,8 @@ class UserController extends BaseController
     public function getRules()
     {
          echo "Call func success!";
+         echo "<pre>";
+         print_r(get_included_files());
     }
 
     public function login()
@@ -30,7 +32,12 @@ class UserController extends BaseController
 
         if(isset($res['access_token']))
         {
-            pengine::ajaxReturn(array('code'=>200,'msg'=>'success','ret'=>$res));
+            $ret = array(
+                    'code'=>200,
+                    'msg'=>'success',
+                    'ret'=>$res
+            );
+            pengine::ajaxReturn($ret);
         }
     }
 }

@@ -13,7 +13,7 @@ use \Firebase\JWT\ExpiredException;
 
 class AuthModel extends BaseModel
 {
-    protected $access_Exp  = 60;
+    protected $access_Exp  = 3600;
     protected $refresh_Exp = 7200;
 
     public function __construct()

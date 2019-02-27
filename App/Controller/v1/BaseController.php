@@ -11,9 +11,6 @@ class BaseController
 
     public $private_key;
 
-    protected $access_exp_time  = 3600;
-    protected $refresh_exp_time = 7200;
-    protected $token_type       = 'Bearer';
     protected $AuthServices;
 
     public function __construct()
