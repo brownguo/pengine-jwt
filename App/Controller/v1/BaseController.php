@@ -32,7 +32,11 @@ class BaseController
         {
             $ret = $this->AuthServices->_verifyToken($token);
 
-            print_r($ret);
+            if(!$ret)
+            {
+                //这里说明token有问题了,后续补一个403页面
+                pengine::send_http_status(403);
+            }
         }
     }
 }

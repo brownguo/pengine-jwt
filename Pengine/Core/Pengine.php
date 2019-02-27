@@ -423,4 +423,65 @@ class Pengine
         return $_array;
     }
 
+
+    public static function send_http_status($code)
+    {
+        static $_status = array(
+            // Success 2xx
+            200 => 'OK',
+            // Redirection 3xx
+            301 => 'Moved Permanently',
+            302 => 'Moved Temporarily ',  // 1.1
+            // Client Error 4xx
+            400 => 'Bad Request',
+            403 => 'Forbidden',
+            404 => 'Not Found',
+            // Server Error 5xx
+            500 => 'Internal Server Error',
+            503 => 'Service Unavailable',
+        );
+        if(isset($_status[$code]))
+        {
+            header('HTTP/1.1 '.$code.' '.$_status[$code]);
+            // 确保FastCGI模式下正常
+            header('Status:'.$code.' '.$_status[$code]);
+        }
+    }
+
+    public static function send_error_code($code)
+    {
+        $error_code = Config::get('code');
+
+        if(@isset($error_code[$code]))
+        {
+            return $error_code[$code];
+        }
+    }
+
+    public static function ajaxReturn($data,$type='')
+    {
+        if(empty($type)) $type  =   'JSON';
+
+        switch (strtoupper($type))
+        {
+            case 'JSON' :
+                // 返回JSON数据格式到客户端 包含状态信息
+                header('Content-Type:application/json; charset=utf-8');
+                exit(json_encode($data));
+            case 'XML'  :
+                // 返回xml格式数据
+                header('Content-Type:text/xml; charset=utf-8');
+                exit(xml_encode($data));
+            case 'JSONP':
+                // 返回JSON数据格式到客户端 包含状态信息
+                header('Content-Type:application/json; charset=utf-8');
+                $handler  =   'jsonpReturn';
+                exit($handler.'('.json_encode($data).');');
+            case 'EVAL' :
+                // 返回可执行的js脚本
+                header('Content-Type:text/html; charset=utf-8');
+                exit($data);
+        }
+    }
+
 }

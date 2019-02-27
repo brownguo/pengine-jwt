@@ -18,7 +18,7 @@ class UserController extends BaseController
 
     public function getRules()
     {
-         echo "111";
+         echo "Call func success!";
     }
 
     public function login()
@@ -28,6 +28,9 @@ class UserController extends BaseController
 
         $res = $this->UserServices->_doLogin($username,$password);
 
-        print_r($res);
+        if(isset($res['access_token']))
+        {
+            pengine::ajaxReturn(array('code'=>200,'msg'=>'success','ret'=>$res));
+        }
     }
 }

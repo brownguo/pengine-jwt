@@ -33,5 +33,13 @@ return array(
             'v2'=>array(
                 '/test/test' =>'user/login'
             )
+    ),
+
+    'error_code'=>array(
+        200001 => 'Expired token',                  //令牌过期
+        200002 => 'Signature verification failed',  //签名验证失败
+        200003 => 'Cannot handle token',    //签名在某个时间点之后才能使用
+        200004 => 'Signature Fatal error',  //其他错误
+        400001 => 'Error in account or password', //账号或者密码错误
     )
 );

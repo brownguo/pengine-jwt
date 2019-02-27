@@ -7,9 +7,15 @@
  */
 
 use \Firebase\JWT\JWT;
+use \Firebase\JWT\SignatureInvalidException;
+use \Firebase\JWT\BeforeValidException;
+use \Firebase\JWT\ExpiredException;
 
 class AuthModel extends BaseModel
 {
+    protected $access_Exp  = 60;
+    protected $refresh_Exp = 7200;
+
     public function __construct()
     {
         parent::__construct();
@@ -53,21 +59,23 @@ class AuthModel extends BaseModel
 
         try {
             JWT::$leeway = 20;
-            $decoded     = JWT::decode($token, $key, ['HS256']);
-            $ret         = pengine::object_to_array($decoded);
-            return $ret;
+            $decoded_res = JWT::decode($token, $key, ['HS256']);
+            if($decoded_res->scopes == 'Access')
+            {
+                return true;
+            }
         }
         catch(SignatureInvalidException $e) {   //签名不正确
-            echo $e->getMessage();
+            pengine::ajaxReturn($this->error_code[200002]);
         }
         catch(BeforeValidException $e) {        //签名在某个时间点之后才能使用
-            echo $e->getMessage();
+            pengine::ajaxReturn($this->error_code[200003]);
         }
         catch(ExpiredException $e) {            //token过期了,尝试refresh
-            echo $e->getMessage();
+            pengine::ajaxReturn($this->error_code[200001]);
         }
         catch(Exception $e) {                   //其他错误
-            echo $e->getMessage();
+            pengine::ajaxReturn($this->error_code[200004]);
         }
     }
 }
