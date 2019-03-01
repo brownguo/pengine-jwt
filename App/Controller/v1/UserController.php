@@ -35,9 +35,21 @@ class UserController extends BaseController
             if(isset($res['access_token']))
             {
                 $ret = array(
-                    'code'=>200,
-                    'msg'=>'success',
-                    'ret'=>$res
+                    'code'  =>200,
+                    'status'=>'success',
+                    //'ret'=>$res,
+                    'currentAuthority'=>'admin',
+                    'type'=>'account'
+                );
+                pengine::ajaxReturn($ret);
+            }
+            else
+            {
+                $ret = array(
+                    'status'   => 'error',
+                    //'ret'    => 'Error in account or password!',
+                    'currentAuthority'=>'guest',
+                    'type'=>'account'
                 );
                 pengine::ajaxReturn($ret);
             }
