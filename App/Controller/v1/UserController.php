@@ -27,8 +27,8 @@ class UserController extends BaseController
     {
         if(IS_POST)
         {
-            $username = pengine::input('post.username');
-            $password = pengine::input('post.password');
+            $username = pengine::input('payload.userName');
+            $password = pengine::input('payload.password');
 
             $res = $this->UserServices->_doLogin($username,$password);
 

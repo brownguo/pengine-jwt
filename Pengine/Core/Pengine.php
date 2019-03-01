@@ -294,6 +294,18 @@ class Pengine
             case 'data'    :
                 $input =& $datas;
                 break;
+            case 'payload':
+                $res   = file_get_contents('php://input');
+                $input = json_decode($res,true);
+                if(isset($input[$name]))
+                {
+                    return $input[$name];
+                }
+                else
+                {
+                    return null;
+                }
+                break;
             default:
                 return null;
         }
