@@ -25,7 +25,12 @@ class BaseController
     {
         $token  = pengine::input('get.token');
 
+        //没带token直接403
         if($token)
+        {
+            pengine::send_http_status(403);
+        }
+        else
         {
             $ret = $this->AuthServices->_verifyToken($token);
 

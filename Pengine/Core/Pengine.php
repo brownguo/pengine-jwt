@@ -133,7 +133,8 @@ class Pengine
         }
         if(!class_exists($Controller))
         {
-            exit('Controller not found!');
+            //exit('Controller not found!');
+            exit('Forbidden');
         }
         if(!method_exists($Controller,$Action))
         {

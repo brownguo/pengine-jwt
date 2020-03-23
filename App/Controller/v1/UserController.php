@@ -25,10 +25,10 @@ class UserController extends BaseController
 
     public function login()
     {
-        if(IS_POST)
+        if(IS_GET)
         {
-            $username = pengine::input('payload.userName');
-            $password = pengine::input('payload.password');
+            $username = pengine::input('get.userName');
+            $password = pengine::input('get.password');
 
             $res = $this->UserServices->_doLogin($username,$password);
 
@@ -39,7 +39,8 @@ class UserController extends BaseController
                     'status'=>'success',
                     //'ret'=>$res,
                     'currentAuthority'=>'admin',
-                    'type'=>'account'
+                    'type'=>'account',
+                    'token'=>$res,
                 );
                 pengine::ajaxReturn($ret);
             }
