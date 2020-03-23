@@ -28,7 +28,8 @@ return array(
             'v1'=>array(
                 '/users/login'  =>'user/login',
                 '/test/test'    =>'user/index',
-                '/auth/rule/get'=>'user/getRules'
+                '/auth/rule/get'=>'user/getRules',
+                '/orders/list/get'=>'orders/getorderlist'       //获取订单列表
             ),
             'v2'=>array(
                 '/test/test' =>'user/login'
