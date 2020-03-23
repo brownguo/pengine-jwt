@@ -19,7 +19,7 @@ class BaseController
         Pengine::loadLibrary('Jwt');
 
         $this->AuthServices = new AuthModel();
-        $password = pengine::input('get.password');
+        $password = pengine::input('payload.password');
         if(empty($password))
         {
             $this->_checkToken();
@@ -28,7 +28,7 @@ class BaseController
 
     protected function _checkToken()
     {
-        $token  = pengine::input('get.token');
+        $token  = pengine::input('payload.token');
 
         if($token)
         {
