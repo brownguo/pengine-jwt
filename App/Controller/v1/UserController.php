@@ -35,22 +35,35 @@ class UserController extends BaseController
             if(isset($res['access_token']))
             {
                 $ret = array(
-                    'code'  =>200,
-                    'status'=>'success',
-                    //'ret'=>$res,
-                    'currentAuthority'=>'admin',
-                    'type'=>'account',
-                    'token'=>$res,
+                    'code'  =>  200,
+                    'msg'   =>  'success',
+                    'data'  => array(
+                        'token'     => $res,
+                        'userInfo'  => array(
+                            'uid'  => 1,
+                            'username' => 'BrownGuo',
+                        ),
+                        'authList' => array(
+                            'orders' => array(  //menu
+                                'icon' => 'bars',
+                                'name' => 'orders',
+                                'routes' => array(
+                                    'icon' => 'rocket',
+                                    'path' => '/orders/all-list',
+                                    'name' => 'all-list',
+                                    'component' => './Orders/OrderList'
+                                )
+                            )
+                        )
+                    )
                 );
                 pengine::ajaxReturn($ret);
             }
             else
             {
                 $ret = array(
-                    'status'   => 'error',
-                    //'ret'    => 'Error in account or password!',
-                    'currentAuthority'=>'guest',
-                    'type'=>'account'
+                    'code'  =>  201,
+                    'msg'   =>  'error',
                 );
                 pengine::ajaxReturn($ret);
             }

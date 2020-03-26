@@ -11,10 +11,16 @@ use \Firebase\JWT\SignatureInvalidException;
 use \Firebase\JWT\BeforeValidException;
 use \Firebase\JWT\ExpiredException;
 
+
+
+
+
 class AuthModel extends BaseModel
 {
     protected $access_Exp  = 3600;
     protected $refresh_Exp = 7200;
+
+    protected static $scope_url = 'https://case.codedance.cn';
 
     public function __construct()
     {
