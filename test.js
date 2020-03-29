@@ -11,10 +11,21 @@ console.log(
 const userMap = {name : 'Brown',age:18};
 
 const { name , age } = userMap;
-console.log(name,age);
+console.log(name,age);  // Brown 18
 
 const arrMap = ['orders','detail'];
 
 const [first,second] = arrMap;
 
-console.log(first,second);
+console.log(first,second);   //orders detail
+
+console.log([...arrMap,'hello world!']);   //组装数组
+
+
+//箭头函数
+
+let c = 5;
+
+var fn = x => x*x;
+
+console.log(fn(c));
