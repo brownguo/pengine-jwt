@@ -14,23 +14,10 @@
             ),
             'authList' => array(
                 'orders'=>array(
-                    'icon' => 'bars',
-                    'name' => 'orders',
-                    'routes' => array(
-                       array(
-                           'icon'      => 'rocket',
-                           'path'      => '/orders/all-list',
-                           'name'      => 'all-list',
-                           'component' => './Orders/OrderList'
-                       ),
-                       array(
-                           'path'       => '/orders/detail/:id',
-                           'hideInMenu' => true,
-                           'component'  => './Orders/BasicProfile'
-                       )
-                    )
+                    'search' => true,
+                    'edit'   => true,
+                    'verify' => true,
                 ),
-                'component' => '404'
             )
         )
     );
