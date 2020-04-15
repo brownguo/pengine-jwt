@@ -68,6 +68,10 @@ class UserController extends BaseController
                 pengine::ajaxReturn($ret);
             }
         }
+        else
+        {
+            echo "1111";
+        }
 
     }
 }

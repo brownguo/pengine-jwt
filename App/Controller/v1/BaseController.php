@@ -12,15 +12,17 @@ class BaseController
     public $private_key;
 
     protected $AuthServices;
-    protected $no_verify_action = 'users/login';
 
     public function __construct()
     {
         Pengine::loadLibrary('Jwt');
 
         $this->AuthServices = new AuthModel();
-        $password = pengine::input('payload.password');
-        if(empty($password))
+
+        $no_verify_router = Config::get('no_verify_router');
+
+        //如果当前URL不存在no_verify_router数组里，则需要验证Token
+        if(!in_array(Pengine::getRequestAction(),$no_verify_router))
         {
             $this->_checkToken();
         }

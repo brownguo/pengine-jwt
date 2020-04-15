@@ -72,6 +72,23 @@ class Pengine
         }
     }
 
+    //获取当前请求URL
+    public static function getRequestAction()
+    {
+        $Uri      = $_SERVER['REQUEST_URI'];
+        $Position = strpos($Uri, '?');
+
+        $Url = $Position === false ? $Uri : substr($Uri, 0, $Position);
+        $Url = trim($Url, '/');
+        if($Url)
+        {
+            $UrlArray           = explode('/',$Url);
+            static::$version    = strtolower($UrlArray[0]);
+            $mapping_url        = str_replace(static::$version.'/','',$Uri);
+            return $mapping_url;
+        }
+    }
+
     protected static function dispathch()
     {
         $params = array();

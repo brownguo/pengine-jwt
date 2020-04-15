@@ -36,6 +36,10 @@ return array(
             )
     ),
 
+    'no_verify_router'=>array(
+        '/users/login'
+    ),
+
     'error_code'=>array(
         200001 => 'Expired token',                  //令牌过期
         200002 => 'Signature verification failed',  //签名验证失败
