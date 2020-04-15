@@ -44,16 +44,7 @@ class UserController extends BaseController
                             'username' => 'BrownGuo',
                         ),
                         'authList' => array(
-                            'orders' => array(  //menu
-                                'icon' => 'bars',
-                                'name' => 'orders',
-                                'routes' => array(
-                                    'icon' => 'rocket',
-                                    'path' => '/orders/all-list',
-                                    'name' => 'all-list',
-                                    'component' => './Orders/OrderList'
-                                )
-                            )
+                            'orders_all_list','orders_detail_by_id',
                         )
                     )
                 );
