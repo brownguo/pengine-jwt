@@ -70,7 +70,7 @@ class UserController extends BaseController
         }
         else
         {
-            echo "1111";
+            Pengine::send_http_status(500);
         }
 
     }

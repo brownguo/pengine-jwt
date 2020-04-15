@@ -15,7 +15,7 @@ class Pengine
     protected static $defaultAction     = 'index';
     private static $loadFilesPath;
     private static $version;
-
+    protected static $agent = 'Powered by Pengine / 1.0.1';
     public function __construct()
     {
         static::$startTime = microtime(true);
@@ -475,6 +475,10 @@ class Pengine
             header('HTTP/1.1 '.$code.' '.$_status[$code]);
             // 确保FastCGI模式下正常
             header('Status:'.$code.' '.$_status[$code]);
+
+            $data = static::$agent;
+
+            exit("<h2>".$_status[$code]."</h2><hr style='width: 380px; float: left;'><br />{$data}</hr>");
         }
     }
 
