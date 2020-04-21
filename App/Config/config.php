@@ -36,6 +36,7 @@ return array(
             )
     ),
 
+    //不认证的接口
     'no_verify_router'=>array(
         '/users/login'
     ),
