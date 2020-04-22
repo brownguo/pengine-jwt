@@ -56,4 +56,10 @@ class UserModel extends BaseModel
         );
         return $ret;
     }
+
+    //获取权限列表
+    public function _getRoleList()
+    {
+        $this->AuthServices->_getPermission();
+    }
 }

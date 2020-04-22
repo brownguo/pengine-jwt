@@ -84,4 +84,35 @@ class AuthModel extends BaseModel
             pengine::ajaxReturn($this->error_code[200004]);
         }
     }
+
+    //获取用户权限
+    public function _getPermission()
+    {
+        $user_id    = 1;
+
+        $role_ret   = Db::getInstance()->get(
+            'role',
+            array(
+                'title','status','auth_maps'
+            ),
+            array(
+                'user_id' => $user_id
+            )
+        );
+
+
+        $auth_ret  = Db::getInstance()->select(
+            'auth',
+            array(
+                'auth_roter','auth_name','title'
+            ),
+            array(
+                'id' => [$role_ret['auth_maps']]
+            )
+        );
+        echo "<pre>";
+        print_r($auth_ret);
+        echo Db::getInstance()->last_query();
+        print_r($role_ret);
+    }
 }

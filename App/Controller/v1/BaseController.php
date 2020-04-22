@@ -19,6 +19,7 @@ class BaseController
 
         $this->AuthServices = new AuthModel();
 
+        //不验证的路由
         $no_verify_router = Config::get('no_verify_router');
 
         //如果当前URL不存在no_verify_router数组里，则需要验证Token
@@ -45,5 +46,15 @@ class BaseController
         {
             exit('Forbidden');
         }
+    }
+
+    protected function _checkAuthority()
+    {
+
+    }
+
+    protected function _getAuthority()
+    {
+
     }
 }

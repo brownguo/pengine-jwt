@@ -65,4 +65,9 @@ class UserController extends BaseController
         }
 
     }
+
+    public function testlogin()
+    {
+        $this->UserServices->_getRoleList();
+    }
 }

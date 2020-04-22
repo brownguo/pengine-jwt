@@ -16,7 +16,7 @@ return array(
             'password'      => '',
             'charset'       => 'utf8',
             'port'          => 3306,
-            'prefix'        => 't_',
+            'prefix'        => 't_crm_',
             'option'        => [
                 PDO::ATTR_CASE => PDO::CASE_NATURAL
             ]
@@ -27,6 +27,7 @@ return array(
     'router'=>array(
             'v1'=>array(
                 '/users/login'  =>'user/login',
+                '/users/testlogin'  =>'user/testlogin',         // test,pushlive的时候要干掉
                 '/test/test'    =>'user/index',
                 '/auth/rule/get'=>'user/getRules',
                 '/orders/list/get'=>'orders/getorderlist'       //获取订单列表
@@ -38,7 +39,8 @@ return array(
 
     //不认证的接口
     'no_verify_router'=>array(
-        '/users/login'
+        '/users/login',
+        '/users/testlogin',
     ),
 
     'error_code'=>array(
